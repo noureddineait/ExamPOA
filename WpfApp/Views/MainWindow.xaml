@@ -1,0 +1,65 @@
+﻿<Window x:Class="WpfApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp"
+        mc:Ignorable="d"
+        Title="Application Pokemon" Height="400" Width="550" ResizeMode="NoResize" >
+    <Grid Margin="5,5,5,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Ajouter un dresseur -->
+        <Label Content="Nom" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 5" Height="25" />
+        <TextBox Text="{Binding Dresseur.Nom}"   VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"  Margin="5, 5, 5, 5" Height="25" />
+
+        <Label Content="Prénom" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0" Height="25" Margin="5, 5, 5, 5" />
+        <TextBox Text="{Binding Dresseur.Prénom}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="0" Margin="5, 5, 5, 5"  Height="25" />
+
+        <Button Command="{Binding AjoutCommand}" Content="Ajouter" VerticalAlignment="Center" Grid.Column="4" Grid.Row="0"  Margin="5, 5, 5, 5" Height="25" />
+
+        <!-- Afficher la liste des pokemons du dresseur -->
+        <Label Content="Dresseur" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"  Margin="5, 5, 5, 5" Height="25" />
+
+        <ComboBox ItemsSource="{ Binding Dresseurs }"
+            SelectedItem="{ Binding SelectedDresseur, UpdateSourceTrigger=PropertyChanged }" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"  Margin="5, 5, 5, 5" Height="25" />
+
+        <Button Command="{Binding AfficherCommand}" Content="Afficher" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2"  Margin="5, 5, 5, 5" Height="25" />
+
+        <DataGrid ItemsSource="{Binding DresseurPokemons, NotifyOnSourceUpdated=True}" Margin="5,5,5,5" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="5" Grid.Row="2">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="*" />
+                <DataGridTextColumn Header="Nom" Width="*" />
+                <DataGridTextColumn Header="Type" Width="*" />
+                <DataGridTextColumn Header="Niveau" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>        
+        
+        <!-- Associer un pokemon à un dresseur -->
+        <Label Content="Dresseur" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"  Margin="5, 5, 5, 5" Height="25" />
+
+        <ComboBox ItemsSource="{ Binding Dresseurs }"
+            SelectedItem="{ Binding AssociateDresseur, UpdateSourceTrigger=PropertyChanged }" VerticalAlignment="Center" Grid.Column="1" Grid.Row="3" Margin="5, 5, 5, 5" Height="25" />
+
+        <Label Content="Pokemon" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3"  Margin="5, 5, 5, 5" Height="25" />
+
+        <ComboBox ItemsSource="{ Binding Pokemons }"
+            SelectedItem="{ Binding AssociatePokemon, UpdateSourceTrigger=PropertyChanged }" VerticalAlignment="Center" Grid.Column="3" Grid.Row="3" Margin="5, 5, 5, 5" Height="25" />
+
+        <Button Command="{Binding AssocierCommand}" Content="Associer" VerticalAlignment="Center" Grid.Column="4" Grid.Row="3" Margin="5, 5, 5, 5" Height="25" />
+    </Grid>
+</Window>
